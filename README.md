@@ -1,9 +1,34 @@
-![Blockly Games](https://raw.githubusercontent.com/wiki/google/blockly-games/title.png)
 
-Google's Blockly Games is a series of educational games that teach programming.
-It is based on the [Blockly](https://developers.google.com/blockly/) library.
-All code is free and open source.
+## Get the Code
 
-**The games are at https://blockly.games/**
+First, download the source code.  Git is the easiest:
 
-**The developer's site is at https://github.com/google/blockly-games/wiki**
+    git clone https://github.com/LucaCellamare/LinoGlobulino.git
+
+## Get the Dependencies
+
+Enter the Blockly Games directory, and get/build
+the dependencies:
+
+    cd blockly-games/
+    make deps
+
+## Build English
+
+The next step is to build the English versions of the game:
+    make maze-en
+
+There shouldn't be any errors.
+
+## Build all Languages
+
+Optionally, you might wish to build all 50+ languages, not just English. Be
+warned that this takes approximately *2 hours*, so this may be something you
+should do overnight.
+
+    make languages
+
+## Test Locally
+
+Point a browser at `blockly-games/trunk/appengine/maze.html?lang=en` and you should
+see the game.
