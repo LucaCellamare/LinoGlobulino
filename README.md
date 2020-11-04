@@ -1,6 +1,6 @@
 # LINO GLOBULINO
 ## The Game
-This game is inspired by the Google Blockly Game Maze (https://developers.google.com/blockly) and by the character Lino Globulino (https://www.aip-it.org/index.php/le-avventure-di-lino-globulino), created by Associazione Immunodeficienze Primitive – AIP. Help the protagonist to achieve his goal: a Space Hospital, to which Lino carries transfusion bags, thus helping patients.
+This game is inspired by the Google Blockly Game Maze (https://blockly.games/maze) and by the character Lino Globulino (https://www.aip-it.org/index.php/le-avventure-di-lino-globulino), created by Associazione Immunodeficienze Primitive – AIP. Help the protagonist to achieve his goal: a Space Hospital, to which Lino carries transfusion bags, thus helping patients.
 
 ## Get the Code
 
