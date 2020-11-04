@@ -1,0 +1,122 @@
+{namespace Pond.Duck.Online.soy}
+
+/**
+ * This is a Closure Template.
+ *
+ * To regenerate just English, run:
+ *   make pond-online-en
+ *
+ * To regenerate all languages, run:
+ *   make languages
+ */
+
+/**
+ * Translated messages for use in JavaScript.
+ */
+{template .messages}
+  {call Pond.Duck.soy.messages /}
+  <div style="display: none">
+      <span id="Online_publishDuckDialog">{msg meaning="Online.publishDuckDialog" desc="Warning dialog. Options are 'OK' and 'Cancel'."}Publishing a duck allows other user's ducks to play against it. Is this OK?{/msg}</span>
+      <span id="Online_deleteDuckDialog">{msg meaning="Online.deleteDuckDialog" desc="Warning dialog. Options are 'OK' and 'Cancel'."}Are you sure you want to delete this duck?{/msg}</span>
+  </div>
+{/template}
+
+/**
+ * Web page structure.
+ */
+{template .start}
+  {call .messages /}
+  // TODO: move duck list button.
+  <button id="duckListButton">
+    Open Duck List
+  </button>
+
+  {call Pond.Duck.soy.start}
+    {param appName}
+      Pond Online{sp}
+    {/param}
+    {param farLeftHtml}
+      <button id="saveButton">
+        {msg meaning="Online.saveDuck" desc="Text on the button used to save a duck."}Save{/msg}
+      </button>
+    {/param}
+    {param tabareaHtml}
+      <div id="editorBar" class="tab-bar">
+        <div class="editor tab tab-selected">{{msg meaning="Games.blocks" desc="IBID"}}Blocks{{/msg}}</div>
+        <div class="editor tab">JavaScript</div>
+        <div class="tab">Duck Info</div>
+        <div id="leaderboard-tab" class="tab">Leaderboard</div>
+      </div>
+      <div class="tab-bar-clear"></div>
+      <img id="spinner" style="display: none;" src="common/loading.gif" height=15 width=15>
+      <div id="blockly" class="tab-content"></div>
+      <div id="editor" class="tab-content"></div>
+      <div id="duck-info" class="tab-content"></div>
+      <div id="leaderboard" class="tab-content">
+        <iframe id="leaderboard-iframe" frameborder="0" style="overflow: hidden; height: 100%;
+        width: 100%; position: absolute;" src="pond-duck-leaderboard?lang={$ij.lang}&duck={$ij.duckKey}"></iframe>
+      </div>
+    {/param}
+  {/call}
+
+  {call .rankComputeIframe /}
+  {call .duckListDialog /}
+  {call BlocklyGames.soy.doneDialog /}
+  {call BlocklyGames.soy.abortDialog /}
+  {call BlocklyGames.soy.storageDialog /}
+{/template}
+
+/**
+ * Duck info tab content.
+ * @param duck Object storing duck information.
+ */
+{template .duckInfo}
+  <div class="playerDuckIcon">
+    <img src="common/1x1.gif" class="playerDuckBody">
+    <img src="common/1x1.gif" class="playerDuckHead">
+  </div>
+
+  <p>
+    Name: {$duck['name']}
+  </p>
+
+  <p>
+    Ranking: {if $duck['ranking']}{$duck['ranking']}{else}UNRANKED{/if}
+  </p>
+
+  {if $duck['published']}
+    <button id="unPublishButton">
+      {msg meaning="Online.unpublishDuckButton" desc="Text on the button used to unpublish a duck."}Unpublish this Duck{/msg}
+    </button>
+  {else}
+    <button id="publishButton">
+      {msg meaning="Online.publishDuckButton" desc="Text on the button used to publish a duck."}Publish this Duck{/msg}
+    </button>
+  {/if}
+  <br>
+  <button id="deleteButton">
+    {msg meaning="Online.deleteDuckButton" desc="Text on the button used to delete a duck."}Delete this Duck{/msg}
+  </button>
+  <br>
+  <button id="copyButton">
+    {msg meaning="Online.copyDuckButton" desc="Text on the button used to copy a duck."}Copy this Duck{/msg}
+  </button>
+  <br>
+{/template}
+
+/**
+ * Iframe computing ranking position.
+ */
+{template .rankComputeIframe}
+  <iframe src="pond-duck-rank" style="display:none;"></iframe>
+{/template}
+
+
+/**
+ * Duck List dialog content.
+ */
+{template .duckListDialog}
+  <div id="duckListDialog" class="dialogHiddenContent">
+    <iframe style="border: 0" id="duckListIframe" src="pond-duck-board"></iframe>
+  </div>
+{/template}

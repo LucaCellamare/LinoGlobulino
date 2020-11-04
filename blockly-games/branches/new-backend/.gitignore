@@ -1,0 +1,10 @@
+.DS_Store
+*.pyc
+
+appengine/generated/
+appengine/*/generated/
+appengine/*/*/generated/
+appengine/third-party/
+json/keys.json
+appengine/proxy/node_modules
+third-party-downloads/*

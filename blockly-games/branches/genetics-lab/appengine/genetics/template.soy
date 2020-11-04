@@ -1,0 +1,128 @@
+{namespace Genetics.soy}
+
+/**
+ * This is a Closure Template.
+ *
+ * To regenerate just English, run:
+ *   make genetics-lab-en
+ *
+ * To regenerate all languages, run:
+ *   make languages
+ */
+
+/**
+ * Translated messages for use in JavaScript.
+ */
+{template .messages}
+  {call BlocklyGames.soy.messages /}
+  <div style="display: none">
+    <span id="Genetics_getMiceTooltip">{msg meaning="Genetics.getMiceTooltip" desc="Tooltip for the block that returns all other alive mice in the game."}Returns all other alive mice in the game.{/msg}</span>
+    <span id="Genetics_getSelfTooltip">{msg meaning="Genetics.getSelfTooltip" desc="Tooltip for the block that returns the mouse making the decision."}Returns the mouse making the decision.{/msg}</span>
+    <span id="Genetics_pickFightTooltip">{msg meaning="Genetics.pickFightTooltip" desc="Tooltip for the block that defines the logic for picking a mouse to fight against."}Defines the function for picking a mouse to fight against.{/msg}</span>
+    <span id="Genetics_proposeMateTooltip">{msg meaning="Genetics.proposeMateTooltip" desc="Tooltip for the block that defines the logic for choosing a mouse to mate with."}Defines the function for choosing a mouse to mate with.{/msg}</span>
+    <span id="Genetics_acceptMateTooltip">{msg meaning="Genetics.acceptMateTooltip" desc="Tooltip for the block that defines the logic for answering a mate request."}Defines the function for the answer to a mate request.{/msg}</span>
+    <span id="Genetics_sizeTooltip">{msg meaning="Genetics.sizeTooltip" desc="Tooltip for the block that reports the size of the specified mouse."}Reports the size of the specified mouse.{/msg}</span>
+    <span id="Genetics_aggressivenessTooltip">{msg meaning="Genetics.aggressivenessTooltip" desc="Tooltip for the block that reports the aggressiveness of the specified mouse."}Reports the aggressiveness of the specified mouse.{/msg}</span>
+    <span id="Genetics_fertilityTooltip">{msg meaning="Genetics.fertilityTooltip" desc="Tooltip for the block that reports the fertility of the specified mouse."}Reports the fertility of the specified mouse.{/msg}</span>
+    <span id="Genetics_startFertilityTooltip">{msg meaning="Genetics.startFertilityTooltip" desc="Tooltip for the block that reports the starting fertility of the specified mouse."}Reports the starting fertility of the specified mouse.{/msg}</span>
+    <span id="Genetics_sexTooltip">{msg meaning="Genetics.sexTooltip" desc="Tooltip for the block that reports the sex of the specified mouse."}Reports the sex of the specified mouse.{/msg}</span>
+    <span id="Genetics_ageTooltip">{msg meaning="Genetics.ageTooltip" desc="Tooltip for the block that reports the age of the specified mouse."}Reports the age of the specified mouse.{/msg}</span>
+    <span id="Genetics_idTooltip">{msg meaning="Genetics.idTooltip" desc="Tooltip for the block that reports the id of the specified mouse."}Reports the id of the specified mouse.{/msg}</span>
+    <span id="Genetics_pickFightOwnerTooltip">{msg meaning="Genetics.pickFightOwnerTooltip" desc="Tooltip for the block that reports the owner of the pickFight function of the specified mouse."}Reports the owner of the pickFight function of the specified mouse.{/msg}</span>
+    <span id="Genetics_proposeMateOwnerTooltip">{msg meaning="Genetics.proposeMateOwnerTooltip" desc="Tooltip for the block that reports the owner of the proposeMate function of the specified mouse."}Reports the owner of the proposeMate function of the specified mouse.{/msg}</span>
+    <span id="Genetics_acceptMateOwnerTooltip">{msg meaning="Genetics.acceptMateOwnerTooltip" desc="Tooltip for the block that reports the owner of the acceptMate function of the specified mouse."}Reports the owner of the acceptMate function of the specified mouse.{/msg}</span>
+  </div>
+{/template}
+
+/**
+ * Game elements used for visualization.
+ */
+{template .gameElementTemplates}
+</style>
+<div id="gameElements" style="display:none;">
+  <div id="dust" class="dust">
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <p class="star1">&#9734;</p>
+    <p class="star2">&#9734;</p>
+    <p class="star3">&#9734;</p>
+    <p class="star4">&#9734;</p>
+  </div>
+</div>
+{/template}
+
+/**
+ * Game display, player stats and buttons.
+ */
+{template .visualization}
+  <div id="visualization">
+  {if $ij.level >= 9}
+    <div id="vizTabbar" class="goog-tab-bar goog-tab-bar-top">
+      <div class="goog-tab goog-tab-selected">Visualization</div>
+      <div class="goog-tab">Charts</div>
+    </div>
+    <div class="goog-tab-bar-clear"></div>
+    {/if}
+    {call .gameElementTemplates /}
+    <div class="vizTabContent">
+      <div id="displayContent">
+        <div id="display"></div>
+      </div>
+      {if $ij.level >= 9}
+      <div id="charts">
+        <div id="populationChart"></div>
+        <div id="pickFightChart"></div>
+        <div id="proposeMateChart"></div>
+        <div id="acceptMateChart"></div>
+      </div>
+      {/if}
+    </div>
+  </div>
+
+  <table class="playerStatTable">
+   <tbody>
+      <tr id="playerNameRow">
+        {for $i in range(4)}
+          <td class="playerStatName">
+          </td>
+        {/for}
+      <tr id="playerStatRow">
+        {for $i in range(4)}
+          <td>
+            <div class="mouseFunctionIcons"></div>
+            <div class="pickFightStat" ></div>
+            {if $ij.level >= 5}
+              <div class="proposeMateStat"></div>
+              {if $ij.level >= 7}
+                <div class="acceptMateStat"></div>
+              {/if}
+            {/if}
+          </td>
+        {/for}
+      </tr>
+    </tbody>
+  </table>
+
+  <table width="400">
+    <tr>
+      <td style="width: 190px; text-align: center; vertical-align: top;">
+        <button id="docsButton" title="{msg meaning="Genetics.docsTooltip" desc="Tooltip for the button that opens the language reference documentation."}Display the language documentation.{/msg}">
+          {{msg meaning="Genetics.documentation" desc="Text on the button that opens the language reference documentation.\n{lb}{lb}Identical|Documentation{rb}{rb}"}}Documentation{{/msg}}
+        </button>
+      </td>
+      <td>
+        <button id="runButton" class="primary" title="{msg meaning="Games.runTooltip" desc="IBID"}Run the program you wrote.{/msg}">
+          <img src="common/1x1.gif" class="run icon21"> {msg meaning="Games.runProgram" desc="IBID"}Run Program{/msg}
+        </button>
+        <button id="resetButton" class="primary" style="display: none" title="{msg meaning="Games.resetTooltip" desc="IBID"}Stop the program and reset the level.{/msg}">
+          <img src="common/1x1.gif" class="stop icon21"> {msg meaning="Games.resetProgram" desc="IBID"}Reset{/msg}
+        </button>
+      </td>
+    </tr>
+  </table>
+
+  <div id="dialogDocs">
+    <img src="common/1x1.gif" class="close icon21" id="closeDocs">
+    <iframe id="frameDocs"></iframe>
+  </div>
+{/template}

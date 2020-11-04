@@ -1,0 +1,31 @@
+{namespace Pond.Duck.Basic.soy}
+
+/**
+ * This is a Closure Template.
+ *
+ * To regenerate just English, run:
+ *   make pond-duck-en
+ *
+ * To regenerate all languages, run:
+ *   make languages
+ */
+
+/**
+ * Web page structure.
+ */
+{template .start}
+  {call Pond.Duck.soy.start}
+    {param appName}
+      {msg meaning="Games.pond" desc="IBID"}Pond{/msg}
+    {/param}
+    {param tabareaHtml}
+      <div id="editorBar" class="tab-bar">
+        <div class="tab tab-selected">{{msg meaning="Games.blocks" desc="IBID"}}Blocks{{/msg}}</div>
+        <div class="tab">JavaScript</div>
+      </div>
+      <div class="tab-bar-clear"></div>
+      <div id="blockly" class="tab-content"></div>
+      <div id="editor" class="tab-content"></div>
+    {/param}
+  {/call}
+{/template}
